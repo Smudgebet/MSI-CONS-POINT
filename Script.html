@@ -1,0 +1,98 @@
+// Working 13th December 2023
+// Next steps to push data to correct fields
+
+<script>
+
+// Converts lowercase to Uppercase for the fields detailed
+  function upperCase() {
+  const v = document.getElementById("courierConsignmentNumber");
+  v.value = v.value.toUpperCase();
+  const x = document.getElementById("serialNumber");
+  x.value = x.value.toUpperCase();
+  const y = document.getElementById("courier");
+  y.value = y.value.toUpperCase();
+  const z = document.getElementById("partNumber");
+  z.value = z.value.toUpperCase();
+}
+
+ function AddRow()
+        {
+          var serialNumber = document.getElementById("serialNumber").value;
+          var partNumber = document.getElementById("partNumber").value;
+          var customer =  document.getElementById("customer").value;
+          var courier = document.getElementById("courier").value;
+          var courierConsignmentNumber = document.getElementById("courierConsignmentNumber").value;
+          var soNumber = document.getElementById("soNumber").value;
+          var encryptionCheck = document.getElementById("encryptionCheck").value;
+          var status = document.getElementById("status").value;
+          var quantity = 1;
+          var encryptionStatus = document.getElementById("encryptionStatus").value;
+          
+          document.getElementById("resp").value = 'Sending data..';
+
+          google.script.run.withSuccessHandler(data => {document.getElementById("resp").innerHTML = data;}).AddRecord(
+            serialNumber, 
+            partNumber, 
+            customer, 
+            courier, 
+            courierConsignmentNumber,
+            soNumber,
+            encryptionCheck,
+            status,
+            quantity,
+            encryptionStatus
+            );
+          document.getElementById("serialNumber").value = '';
+          document.getElementById("partNumber").value = '';
+          document.getElementById("customer").value = '';
+          document.getElementById("courier").value = '';
+          document.getElementById("courierConsignmentNumber").value = '';
+          document.getElementById("soNumber").value = '';
+          document.getElementById("encryptionCheck").value = '';
+          document.getElementById("status").value = '';
+          document.getElementById("encryptionStatus").value = '';
+          document.getElementById("description").value = '';
+          document.getElementById("resp").innerHTML = " ";
+          alert("Console Point Database Updated");             
+        }
+
+        function validateButton(){
+        var partNum = document.getElementById("partNumber").value;
+        google.script.run.withSuccessHandler(updateProfile).checkPartNum(partNum);           
+      }
+
+
+      // Reads Data From The Spreadsheet & Displays In The Form
+      function updateProfile(returnData){
+          console.table(returnData);
+          console.log(returnData);
+          document.getElementById("encryptionStatus").value = returnData[4];
+          document.getElementById("description").value = returnData[1];
+      }
+
+
+
+// Code for Search Function by Serial Number
+    function FindSNButton(){
+    var findSN = document.getElementById("findSerialNumber").value;
+    google.script.run.withSuccessHandler(updateFindSNProfile).checkSN(findSN);           
+  }
+
+   // <!-- Reads Data From The Spreadsheet & Displays In The Form -->
+  function updateFindSNProfile(returnData){
+      console.table(returnData);
+      console.log("Working....");
+      console.log(returnData);
+      document.getElementById("encryptionStatus").value = returnData[1];
+      document.getElementById("description").value = returnData[2];
+  }
+
+
+
+
+
+
+
+
+
+</script>
