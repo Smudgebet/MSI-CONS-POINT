@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <?!= include('style'); ?>
+  </head>
+  <body>
+     
+
+<div> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Motorola_Solutions_Logo.svg/951px-Motorola_Solutions_Logo.svg.png"></div>
+
+<div class="grid-container">
+
+
+<div class="grid-child">
+    <div class="container">      
+      <form>
+
+
+         <H1>Encryption Check</H1>
+        <div class='row'>
+          <div class='column1'><label for="partNumber">Part Number:</label></div>
+          <div class='column2'><input type="text" id="partNumber" onchange="upperCase()"/></div>
+        </div>
+
+        
+
+        <div class='row'>
+          <div class='column1'><label for="encryptionStatus">Is the Device Encrypted?</label></div>
+          <div class='column2'><input type="text" disabled id="encryptionStatus" /></div>
+        </div>
+
+        <div class='row'>
+          <div class='column1'><label for="description">Description:</label></div>
+          <div class='column2'><input disabled type="text" id="description" /></div>
+        </div>
+
+         <div class='column1'><input class='button' type="button" value="Validate Details" onclick="validateButton()"></div>
+            <div class='column2'></div>
+
+        <hr>
+        
+          <H1>Device Details</H1>
+        <div class='row'>
+          <div class='column1'><label for="serialNumber">Serial Number:</label></div>
+          <div class='column2'><input  type="text" id="serialNumber" onchange="upperCase()"/></div>
+        </div>
+        
+        
+        <div class='row'>
+          <div class='column1'><label for="customer">Customer:</label></div>
+          <div class='column2'><select id="customer" name="customer">
+            <option value=""></option>
+            <option value="Thales Telecom Services">Thales Telecom Services</option>
+            <option value="Telent LRC">Telent LRC</option>
+            <option value="MSI">MSI</option>
+          </select></div>
+        </div>
+
+        <div class='row'>
+          <div class='column1'><label for="courier">Courier:</label></div>
+          <div class='column2'><input type="text" id="courier" onchange="upperCase()"/></div>
+        </div>
+
+        <div class='row'>
+          <div class='column1'><label for="courierConsignmentNumber">Courier Consignment Number:</label></div>
+          <div class='column2'><input type="text" id="courierConsignmentNumber" onchange="upperCase()"/></div>
+        </div>
+
+        <div class='row'>
+          <div class='column1'><label for="soNumber">SO Number:</label></div>
+          <div class='column2'><input type="text" id="soNumber" /></div>
+        </div>
+
+        <div class='row'>
+          <div class='column1'><label for="encryptionCheck">Encryption Check Passed?</label></div>
+          <div class='column2'>
+            <select id="encryptionCheck" name="encryptionCheck">
+            <option value=""></option>
+            <option value="PASS - No Encryption">PASS - No Encryption</option>
+            <option value="FAIL - Device is Encrypted">FAIL - Device is Encrypted</option>
+          </select>
+          </div>
+        </div>
+
+        <div class='row'>
+          <div class='column1'><label for="status">Status:</label></div>
+          <div class='column2'>
+            <select id="status" name="status">
+            <option value="0"></option>
+            <option value="Awaiting Shipping Docs">Awaiting Shipping Docs</option>
+            <option value="Awaiting Collection">Awaiting Collection</option>
+            <option value="Awaiting SO Number">Awaiting SO Number</option>
+            <option value="Awaiting Query Response from MSI">Awaiting Query Response from MSI</option>
+            <option value="To Be Processed">To Be Processed</option>
+            <option value="RSD to be Submitted">RSD to be Submitted</option>
+            <option value="Complete. Returned Unrepaired">Complete. Returned Unrepaired</option>
+            <option value="Complete">Complete</option>
+            </select>
+          </div>
+
+
+          <div class='row'>
+            <div class='column1'><input type="button"  class='button' value="Update Device Details" onclick="AddRow()"></div>
+          </div>  
+
+           
+          <div class='row'>
+              <div class='column1' id="resp"></div>
+          </div>      
+        </div>      
+      </form>
+         </div> 
+        </div>
+  
+  <!-- //----------------------------------------------------------------------------------------------------------------------------------------------------//
+  // 2nd Column //
+  //----------------------------------------------------------------------------------------------------------------------------------------------------// -->
+
+<div class="grid-child">
+   <div class="container">  
+       <form>
+       
+
+<H1>Find Device</H1>
+        <div class='row'>
+          <div class='column1'><label for="findSerialNumber">Serial Number:</label></div>
+          <div class='column2'><input type="text" id="findSerialNumber" onchange="upperCase()"/></div>
+        </div>
+
+        
+
+        <div class='row'>
+          <div class='column1'><label for="findSOnumber">SO Number:</label></div>
+          <div class='column2'><input type="text" id="findSOnumber" /></div>
+        </div>
+
+
+        <div class='row'>
+            <div class='columnSplit'><input type="button"  class='button' value="Find Device by SN" onclick="FindSNButton()"></div>
+            <div class='columnSplit'><input type="button"  class='button' value="Find Device by SO" onclick="AddRow()"></div>
+          </div>  
+
+        <hr>
+
+        <H1>Shipping Details</H1>
+        <div class='row'>
+          <div class='column1'><label for="outboundCourier">Outbound Courier:</label></div>
+          <div class='column2'><input type="text" id="outboundCourier" onchange="upperCase()"/></div>
+        </div>
+
+        
+
+        <div class='row'>
+          <div class='column1'><label for="outboundCourierTrackingNumber">Outbound Tracking Number:</label></div>
+          <div class='column2'><input type="text" id="outboundCourierTrackingNumber" /></div>
+        </div>
+
+
+        <div class='row'>
+            <div class='column1'><input type="button"  class='button' value="Update Shipping Details" onclick="AddRow()"></div>
+          </div>  
+
+          <hr>
+        
+          <H1>SO Issues</H1>
+
+         <div class='row'>
+          <div class='column1'><label for="so1">SO Request Date:</label></div>
+          <div class='column2'><input type="text" id="so1" onchange="upperCase()"/></div>
+        </div>
+
+        <div class='row'>
+          <div class='column1'><label for="so2">SO Receipt Date:</label></div>
+          <div class='column2'><input type="text" id="so2" onchange="upperCase()"/></div>
+        </div>
+
+        <div class='row'>
+          <div class='column1'><label for="so3">Outbound Courier:</label></div>
+          <div class='column2'><input type="text" id="so3" onchange="upperCase()"/></div>
+        </div>
+
+         <div class='row'>
+            <div class='column1'><input type="button"  class='button' value="Update SO Status" onclick="AddRow()"></div>
+          </div> 
+        
+        </div>  
+       </div>   
+
+
+       
+      </form>
+      <br>
+      
+
+    </div>
+   </div>
+
+
+
+
+</div>
+    </div>
+</div>
+
+      
+
+
+
+
+   
+      
+
+    <?!= include('script'); ?>
+
+
+    <script>
+
+         
+    </script>
+
+  </body>
+</html>
